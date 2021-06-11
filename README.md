@@ -9,3 +9,7 @@ Tech Stack:
 - Python 3.8+
 - Flask
 - SQLite via SQLAlchemy
+
+## Credits
+
+Created with a help of open source community by [Roman Glushko](https://www.romaglushko.com/) 🦁
