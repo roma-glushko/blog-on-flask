@@ -21,3 +21,8 @@ Tech Stack:
 ## Credits
 
 Created with a help of open source community by [Roman Glushko](https://www.romaglushko.com/) 🦁
+
+## References
+
+- https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
+- https://www.cockroachlabs.com/docs/cockroachcloud/deploy-a-python-to-do-app-with-flask-kubernetes-and-cockroachcloud.html
