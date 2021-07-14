@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "flask-tutorial"
+name = "flask-blog"
 version = "0.1.0"
 description = ""
 authors = ["Roman Glushko <roman.glushko.m@gmail.com>"]
@@ -11,6 +11,7 @@ Flask = "^2.0.1"
 Flask-WTF = "^0.15.1"
 Flask-SQLAlchemy = "^2.5.1"
 Flask-Migrate = "^3.0.1"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 
