@@ -49,8 +49,9 @@ RUN poetry install --no-dev
 
 # `development` image is used during development / testing
 FROM python-base as development
-ENV FLASK_APP=blog
+ENV FLASK_APP=blog.py
 ENV FLASK_ENV=development
+ENV FLASK_DEBUG=development
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
