@@ -51,7 +51,7 @@ RUN poetry install --no-dev
 FROM python-base as development
 ENV FLASK_APP=blog.py
 ENV FLASK_ENV=development
-ENV FLASK_DEBUG=development
+ENV FLASK_DEBUG=true
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
