@@ -1,10 +1,15 @@
+from __future__ import annotations
+
 from datetime import datetime
 from hashlib import md5
+from time import time
+from typing import Optional
 
+import jwt
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db, login
+from app import db, login, app
 
 followers = db.Table(
     'followers',
@@ -30,33 +35,33 @@ class User(UserMixin, db.Model):
     )
 
     @login.user_loader
-    def load_user(id):
+    def load_user(id) -> User:
         return User.query.get(int(id))
 
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-    def avatar(self, size):
+    def avatar(self, size: int) -> str:
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
 
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
 
-    def follow(self, user):
+    def follow(self, user: User) -> None:
         if self.is_following(user):
             return
 
         self.followed.append(user)
 
-    def unfollow(self, user):
+    def unfollow(self, user: User) -> None:
         if not self.is_following(user):
             return
 
         self.followed.remove(user)
 
-    def is_following(self, user):
+    def is_following(self, user: User) -> bool:
         return self.followed \
                    .filter(followers.c.followed_id == user.id) \
                    .count() > 0
@@ -71,6 +76,27 @@ class User(UserMixin, db.Model):
         return followed_user_posts.union(own_posts) \
             .order_by(Post.timestamp.desc())
 
+    def get_reset_password_token(self, expires_in: int = 600) -> str:
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'],
+            algorithm='HS256'
+        )
+
+    @staticmethod
+    def verify_reset_password_token(token: str) -> Optional[User]:
+        try:
+            decoded_token = jwt.decode(
+                token,
+                app.config['SECRET_KEY'],
+                algorithms=['HS256']
+            )
+
+            user_id = decoded_token['reset_password']
+        except:
+            return
+
+        return User.query.get(user_id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

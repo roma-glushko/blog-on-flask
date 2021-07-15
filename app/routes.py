@@ -5,7 +5,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, FollowForm, PostForm
+from app.emails import send_password_reset_email
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, FollowForm, PostForm, ResetPasswordRequestForm, \
+    ResetPasswordForm
 from app.models import User, Post
 
 
@@ -157,7 +159,7 @@ def user(username):
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
 
     if form.validate_on_submit():
         current_user.username = form.username.data
@@ -184,6 +186,50 @@ def logout():
     logout_user()
 
     return redirect(url_for('index'))
+
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = ResetPasswordRequestForm()
+
+    if not form.validate_on_submit():
+        return render_template('reset_password_request.html',
+                               title='Reset Password', form=form)
+
+    user = User.query.filter_by(email=form.email.data).first()
+
+    if user:
+        send_password_reset_email(user)
+
+    flash('Check your email for the instructions to reset your password')
+
+    return redirect(url_for('login'))
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    user: User = User.verify_reset_password_token(token)
+
+    if not user:
+        return redirect(url_for('index'))
+
+    form = ResetPasswordForm()
+
+    if not form.validate_on_submit():
+        return render_template('reset_password.html', form=form)
+
+    user.set_password(form.password.data)
+    db.session.commit()
+
+    flash('Your password has been reset.')
+
+    return redirect(url_for('login'))
 
 
 @app.route('/follow/<username>', methods=['POST'])
