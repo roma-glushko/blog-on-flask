@@ -78,4 +78,4 @@ WORKDIR /app
 
 EXPOSE 8000
 
-CMD ["gunicorn", "blog:app", "-w", "2", "--threads", "2", "-b", "0.0.0.0:8000"]
+ENTRYPOINT ["./serve_production.sh"]
