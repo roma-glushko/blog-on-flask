@@ -29,6 +29,11 @@ ENV PYTHONUNBUFFERED=1 \
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
+RUN apk add --update \
+        # Postgresql deps
+        libpq \
+        postgresql-dev
+
 # `builder-base` stage is used to build deps + create our virtual environment
 FROM python-base as builder-base
 RUN apk add --update \

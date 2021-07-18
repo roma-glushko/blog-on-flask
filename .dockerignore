@@ -3,4 +3,5 @@
 *.pyc
 .venv
 app.db
+data
 __pycache__
