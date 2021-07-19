@@ -9,3 +9,16 @@ services:
       target: production
     ports:
       - 8080:8000
+    depends_on:
+      - db
+      - sessions
+
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev.db
+
+  sessions:
+    image: redis:6.2.4-alpine

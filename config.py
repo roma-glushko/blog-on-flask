@@ -15,4 +15,4 @@ class Config(object):
     ADMIN_EMAILS = ['support@twitty.com']
 
     SESSION_TYPE = os.environ.get('SESSION_TYPE') or 'filesystem'
-    SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS') or '127.0.0.1:6379')
+    SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS') or 'redis://127.0.0.1:6379')
