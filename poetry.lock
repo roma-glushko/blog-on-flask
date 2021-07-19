@@ -21,6 +21,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "cachelib"
+version = "0.2.0"
+description = "A collection of cache libraries in the same API interface."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "click"
 version = "8.0.1"
 description = "Composable command line interface toolkit"
@@ -119,6 +127,18 @@ python-versions = "*"
 alembic = ">=0.7"
 Flask = ">=0.9"
 Flask-SQLAlchemy = ">=1.0"
+
+[[package]]
+name = "flask-session"
+version = "0.4.0"
+description = "Adds server-side session support to your Flask application"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+cachelib = "*"
+Flask = ">=0.8"
 
 [[package]]
 name = "flask-sqlalchemy"
@@ -268,6 +288,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "redis"
+version = "3.5.3"
+description = "Python client for Redis key-value store"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[package.extras]
+hiredis = ["hiredis (>=0.1.3)"]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -336,7 +367,7 @@ locale = ["Babel (>=1.3)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8"
-content-hash = "9008ec97451f030d4d3f60b33610833c32fd7bb1620266273a0f4fe8e5fc0647"
+content-hash = "2607d463e9e4757265674efdce6afb3a981093f69ad829500f089d21be51a85d"
 
 [metadata.files]
 alembic = [
@@ -345,6 +376,10 @@ alembic = [
 ]
 blinker = [
     {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
+]
+cachelib = [
+    {file = "cachelib-0.2.0-py3-none-any.whl", hash = "sha256:ee28ffec3d5470314184030a475725b4e5b1b90775c55d34530e16bf7e3e1e11"},
+    {file = "cachelib-0.2.0.tar.gz", hash = "sha256:dcb5fafe6b6b544aaa8d0cacb12d70bbf9bbf72c041f17fcad1618db7bedeada"},
 ]
 click = [
     {file = "click-8.0.1-py3-none-any.whl", hash = "sha256:fba402a4a47334742d782209a7c79bc448911afe1149d07bdabdf480b3e2f4b6"},
@@ -376,6 +411,10 @@ flask-mail = [
 flask-migrate = [
     {file = "Flask-Migrate-3.0.1.tar.gz", hash = "sha256:4d42e8f861d78cb6e9319afcba5bf76062e5efd7784184dd2a1cccd9de34a702"},
     {file = "Flask_Migrate-3.0.1-py2.py3-none-any.whl", hash = "sha256:df9043d2050df3c0e0f6313f6b529b62c837b6033c20335e9d0b4acdf2c40e23"},
+]
+flask-session = [
+    {file = "Flask-Session-0.4.0.tar.gz", hash = "sha256:c9ed54321fa8c4ca0132ffd3369582759eda7252fb4b3bee480e690d1ba41f46"},
+    {file = "Flask_Session-0.4.0-py2.py3-none-any.whl", hash = "sha256:1e3f8a317005db72c831f85d884a5a9d23145f256c730d80b325a3150a22c3db"},
 ]
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
@@ -537,6 +576,10 @@ python-editor = [
     {file = "python_editor-1.0.4-py2.7.egg", hash = "sha256:ea87e17f6ec459e780e4221f295411462e0d0810858e055fc514684350a2f522"},
     {file = "python_editor-1.0.4-py3-none-any.whl", hash = "sha256:1bf6e860a8ad52a14c3ee1252d5dc25b2030618ed80c022598f00176adc8367d"},
     {file = "python_editor-1.0.4-py3.5.egg", hash = "sha256:c3da2053dbab6b29c94e43c486ff67206eafbe7eb52dbec7390b5e2fb05aac77"},
+]
+redis = [
+    {file = "redis-3.5.3-py2.py3-none-any.whl", hash = "sha256:432b788c4530cfe16d8d943a09d40ca6c16149727e4afe8c2c9d5580c59d9f24"},
+    {file = "redis-3.5.3.tar.gz", hash = "sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

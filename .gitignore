@@ -5,3 +5,4 @@
 *.pyc
 app.db
 data
+flask_session

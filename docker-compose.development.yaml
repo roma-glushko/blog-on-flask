@@ -13,6 +13,9 @@ services:
       - ./:/app/
     env_file:
       - ./.env.dev.web
+    depends_on:
+      - db
+      - sessions
 
   db:
     image: postgres:13-alpine
@@ -20,3 +23,6 @@ services:
       - ./data:/var/lib/postgresql/data/
     env_file:
       - ./.env.dev.db
+
+  sessions:
+    image: redis:6.2.4-alpine

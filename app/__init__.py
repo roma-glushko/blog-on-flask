@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
+from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
 from config import Config
@@ -13,6 +14,8 @@ email = Mail()
 login = LoginManager()
 login.login_view = 'auth.login'
 
+sess = Session()
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -21,6 +24,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
+    sess.init_app(app)
     email.init_app(app)
 
     # avoiding circular dependencies

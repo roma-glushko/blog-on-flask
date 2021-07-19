@@ -4,4 +4,5 @@
 .venv
 app.db
 data
+flask_session
 __pycache__
