@@ -114,6 +114,7 @@ spec:
             - configMapRef:
                 name: twitty-database-config
   volumeClaimTemplates:
+    # todo: make postgres saves the files into ./data dir
     - metadata:
         name: database-storage
         namespace: twitty
@@ -136,3 +137,4 @@ data:
   POSTGRES_PASSWORD: hry6!9xWwjEw8CWecYuV4wCD
   POSTGRES_DB: twitty
   PGDATA: /data/pgdata
+# todo: save sessions into redis cluster
